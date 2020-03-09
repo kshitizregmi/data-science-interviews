@@ -255,25 +255,38 @@ Most of the performance metrics for classification models are based on the value
 
 **Precision-recall trade-off ‍⭐️**
 
-Answer here
-
+* Increasing Precision reduces recall and vice versa. 
 <br/>
 
 **What is the ROC curve? When to use it? ‍⭐️**
 
-Answer here
+* ROC = Receiver Operating Characterstics Curve
+* Plots graph -  True positive rate against False Positive Rate
+* Fpr   -  ratio of negative instances that are incorrectly classified positive  = (- true negative rate)
+* Hence plots recall vs specificity
+
+>>> from sklearn.metrics import roc_curve
+>>> fpr , tpr, threshold = roc_curve(y_true,y_score)
+
 
 <br/>
 
 **What is AUC (AU ROC)? When to use it? ‍⭐️**
 
-Answer here
+AUC stands for "Area under the ROC Curve." That is, AUC measures the entire two-dimensional area underneath the entire ROC curve.AUC provides an aggregate measure of performance across all possible classification thresholds. One way of interpreting AUC is as the probability that the model ranks a random positive example more highly than a random negative example.
+
+## AUC in certain use cases:
+
+* Scale invariance is not always desirable. For example, sometimes we really do need well calibrated probability outputs, and     AUC won’t tell us about that.
+
+* Classification-threshold invariance is not always desirable. In cases where there are wide disparities in the cost of false negatives vs. false positives, it may be critical to minimize one type of classification error. For example, when doing email spam detection, you likely want to prioritize minimizing false positives (even if that results in a significant increase of false negatives). AUC isn't a useful metric for this type of optimization.
+
 
 <br/>
 
 **How to interpret the AU ROC score? ‍⭐️**
 
-Answer here
+AUC ranges in value from 0 to 1. A model whose predictions are 100% wrong has an AUC of 0.0; one whose predictions are 100% correct has an AUC of 1.0.
 
 <br/>
 
@@ -329,14 +342,19 @@ Answer here
 <br/>
 
 **Which regularization techniques do you know? ‍⭐️**
-
-Answer here
+1. Lasso
+2. Ridge
+3. Elastic Net
+4. Early stopping
+5. Use Dropout layers
 
 <br/>
 
 **What kind of regularization techniques are applicable to linear models? ‍⭐️**
-
-Answer here
+1. Lasso
+2. Ridge
+3. Elastic Net
+4. Early stopping
 
 <br/>
 
@@ -354,7 +372,9 @@ Answer here
 
 **What’s the effect of L2 regularization on the weights of a linear model? ‍⭐️**
 
-Answer here
+It imposes penalty on size of coffecient 
+Regularization term is added to cost function.
+Hyperparameter alpha controls how harash penalty is.
 
 <br/>
 
@@ -366,19 +386,32 @@ Answer here
 
 **What’s the difference between L2 and L1 regularization? ‍⭐️**
 
-Answer here
+L1:
+
+* Estimate Sparse Coffecient
+* Add regularization term to cost functiion but uses l1 norm of weight vector instead of l2 norm.
+
+L2: 
+
+* It imposes penalty on size of coffecient 
+* Regularization term is added to cost function.
+* Hyperparameter alpha controls how harash penalty is.
 
 <br/>
 
 **Can we have both L1 and L2 regularization components in a linear model? ‍⭐️**
 
-Answer here
+Yes, In Elastic Net.
+r=0 - Ridge Regression
+r=1 - Lasso Regression
 
 <br/>
 
 **What’s the interpretation of the bias term in linear models? ‍⭐️**
 
-Answer here
+- It is a statistical error that causes a bias in the sampling portion of an experiment.
+- The error causes one sampling group to be selected more often than other groups included in the experiment.
+- Selection bias may produce an inaccurate conclusion if the selection bias is not identified
 
 <br/>
 
@@ -438,19 +471,32 @@ Answer here
 
 **What are the decision trees? 👶**
 
-Answer here
+Non Parametric supervised learning method used for : 
+1. Classification
+2. Regression
+
+Goal:
+
+To predict value of target variable by learning simple decision rule infered from data feature.
+Deep tree - Complex 
 
 <br/>
 
 **How do we train decision trees? ‍⭐️**
-
-Answer here
+>>> from sklearn.datasets import load_iris
+>>> from sklearn.model_selection import cross_val_score
+>>> from sklearn.tree import DecisionTreeClassifier
+>>> clf = DecisionTreeClassifier(random_state=0)
+>>> iris = load_iris()
+>>> cross_val_score(clf, iris.data, iris.target, cv=10)
 
 <br/>
 
 **What are the main parameters of the decision tree model? 👶**
 
-Answer here
+1. criterion{“gini”, “entropy”}, default=”gini”
+2. max_depth int, default=None
+3. splitter{“best”, “random”}, default=”best”
 
 <br/>
 
@@ -477,7 +523,9 @@ Answer here
 
 **What is random forest? 👶**
 
-Answer here
+Random forest is ensamble of decision tree generally trained via bagging with max_samples = size_of_train_set
+It introduces extra randomness when tree grows
+Trades high bias with low variance
 
 <br/>
 
@@ -513,7 +561,7 @@ Answer here
 
 **What are the potential problems with many large trees? ‍⭐️**
 
-Answer here
+It takes more computation time. and may overfit.
 
 <br/>
 
@@ -525,7 +573,7 @@ Answer here
 
 **What happens when we have correlated features in our data? ‍⭐️**
 
-Answer here
+When features are correlated change in one variable affects other variable value.
 
 <br/>
 
@@ -618,7 +666,7 @@ Answer here
 
 **Why do we need activation functions? 👶**
 
-Answer here
+- Introduces non linearity. Triggers value 
 
 <br/>
 
@@ -647,8 +695,7 @@ Answer here
 <br/>
 
 **What regularization techniques for neural nets do you know? ‍⭐️**
-
-Answer here
+1. Dropout Layers
 
 <br/>
 
@@ -669,13 +716,18 @@ Answer here
 
 **Which optimization techniques for training neural nets do you know? ‍⭐️**
 
-Answer here
+1. Gradient Descent
+2. Adagrad
+3. AdaDelta
+4. Adam
+5. rmsprop
 
 <br/>
 
 **How do we use SGD (stochastic gradient descent) for training a neural net? ‍⭐️**
 
-Answer here
+Stochastic gradient descent (SGD) takes only a single example (a batch size of 1) per iteration. Given enough iterations, SGD works but is very noisy. The term "stochastic" indicates that the one example comprising each batch is chosen at random.
+
 
 <br/>
 
@@ -780,7 +832,11 @@ Answer here
 
 **What kind of CNN architectures for classification do you know? 🚀**
 
-Answer here
+1. LeNet-5
+2. Alex Net
+3. GoogLeNet
+4. ResNet
+
 
 <br/>
 
